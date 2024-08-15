@@ -99,10 +99,10 @@ util.mergeDeep(Config, {
             gasTimeDecay: 5
         },
         gun: {
-            customSwitchDelay: 0.2 as any
+            customSwitchDelay: 0.1 as any
         },
         player: {
-            baseSwitchDelay: 0.05,
+            baseSwitchDelay: 0.01,
             defaultItems: {
                 backpack: "backpack03",
                 helmet: "helmet03",
