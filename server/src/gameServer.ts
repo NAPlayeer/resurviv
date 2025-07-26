@@ -24,6 +24,19 @@ const WebSocket = require('ws');
 const wss = new WebSocket.Server({ port: 8080 });
 
 wss.on('connection', (ws) => {
+        ws.on('message', (message) => {
+        try {
+            const data = JSON.parse(message.toString());
+
+            if (data.type === 'prestigeUpdate') {
+                console.log(`Player ${data.playerId} prestiged to level ${data.prestigeLevel}`);
+                ws.send(JSON.stringify({ type: 'prestigeConfirmed', prestigeLevel: data.prestigeLevel }));
+            }
+        } catch (err) {
+            console.error('Failed to process message:', err);
+        }
+    });
+
     ws.on('message', (message) => {
         console.log(`Received: ${message}`);
     });
