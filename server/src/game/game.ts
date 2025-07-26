@@ -277,6 +277,21 @@ export class Game {
 
         if (!msg) return;
 
+if (type === net.MsgType.VoteHonor) {
+    if (player) {
+        player.voteHonor();
+    }
+    return;
+}
+
+if (type === net.MsgType.VoteDishonor) {
+    if (player) {
+        player.voteDishonor();
+    }
+    return;
+}
+
+
         if (type === net.MsgType.Join && !player) {
             this.playerBarn.addPlayer(socketId, msg as net.JoinMsg, ip);
             return;
