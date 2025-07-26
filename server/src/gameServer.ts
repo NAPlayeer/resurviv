@@ -18,6 +18,19 @@ import {
 } from "./utils/serverHelpers";
 import { isBanned } from "./utils/moderation";
 
+
+const WebSocket = require('ws');
+
+const wss = new WebSocket.Server({ port: 8080 });
+
+wss.on('connection', (ws) => {
+    ws.on('message', (message) => {
+        console.log(`Received: ${message}`);
+    });
+
+    ws.send('Connected to game server');
+});
+
 export interface FindGameBody {
     region: string;
     zones: string[];
@@ -349,3 +362,22 @@ if (process.argv.includes("--game-server")) {
         }, 10 * 3000);
     });
 }
+
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        const data = JSON.parse(message);
+        if (data.type === 'vote') {
+            const { targetId, voteType, voterId } = data;
+            const targetPlayer = players.find(p => p.id === targetId);
+            const voter = players.find(p => p.id === voterId);
+            if (targetPlayer && voter && voter.dailyVotesLeft > 0 && !voter.votedPlayers.includes(targetId)) {
+                if (voteType === 'honor') targetPlayer.prestige++;
+                if (voteType === 'dishonor') targetPlayer.prestige--;
+                voter.dailyVotesLeft--;
+                voter.votedPlayers.push(targetId);
+                ws.send(JSON.stringify({ type: 'voteUpdate', prestige: targetPlayer.prestige }));
+            }
+        }
+    });
+});
+
