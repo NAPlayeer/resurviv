@@ -465,6 +465,27 @@ export class Player extends BaseGameObject {
      */
     playerStatusDirty = false;
     playerStatusTicker = 0;
+    prestige = 0;
+dailyVotesLeft = 2;
+
+voteHonor() {
+    if (this.dailyVotesLeft > 0) {
+        this.prestige++;
+        this.dailyVotesLeft--;
+    }
+}
+
+voteDishonor() {
+    if (this.dailyVotesLeft > 0) {
+        this.prestige--;
+        this.dailyVotesLeft--;
+    }
+}
+
+resetDailyVotes() {
+    this.dailyVotesLeft = 2;
+}
+
 
     private _health: number = GameConfig.player.health;
 
