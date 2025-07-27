@@ -401,6 +401,7 @@ export class PlayerBarn {
 }
 
 export class Player extends BaseGameObject {
+    prestige: number = 0;
     override readonly __type = ObjectType.Player;
 
     bounds = collider.createAabbExtents(
