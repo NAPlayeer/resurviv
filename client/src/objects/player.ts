@@ -192,6 +192,7 @@ export class Player implements AbstractObject {
     isSpectating: boolean = false;
     activeId: number = -1;
     prestige: number = 0;
+     votesReceived: number = 0;
 
 
     bodySprite = createSprite();
