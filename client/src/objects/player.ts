@@ -479,6 +479,10 @@ export class Player implements AbstractObject {
     ) {
         this.netData.pos = v2.copy(data.pos);
         this.netData.dir = v2.copy(data.dir);
+        if (data.prestige !== undefined) {
+    this.prestige = data.prestige;
+}
+
 
         if (fullUpdate) {
             this.netData.outfit = data.outfit;
