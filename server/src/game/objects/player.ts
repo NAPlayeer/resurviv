@@ -402,6 +402,9 @@ export class PlayerBarn {
 
 export class Player extends BaseGameObject {
     prestige: number = 0;
+    dailyVotesLeft: number = 3;  // Players start with 3 votes each day
+votedPlayers: Set<string> = new Set(); // Keeps track of players they've voted for
+
     override readonly __type = ObjectType.Player;
 
     bounds = collider.createAabbExtents(
