@@ -1325,6 +1325,11 @@ export class UiManager {
 
     beginSpectating() {
         this.specBegin = true;
+        createVotingUI(): void {
+    console.log("Voting UI created");
+    // Implementation for creating and displaying voting UI goes here
+}
+
     }
 
     hideStats() {
