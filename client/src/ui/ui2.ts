@@ -273,7 +273,10 @@ export class UiManager {
         }, 60000); // Check every minute
     }
 }
-    showPostMatchPrestigeVoting(players: { id: number; name: string }[]) {
+    ShowPostMatchPrestigeVoting((players: { id: number; name: string }[]) => {
+    // code that handles players voting goes here
+});
+
         const votingContainer = $("<div/>", { id: "prestige-voting-container" }).css({
             position: "absolute",
             top: "20%",
