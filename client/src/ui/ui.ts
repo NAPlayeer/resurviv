@@ -2491,3 +2491,65 @@ export class UiManager {
         this.roleDisplayed = role;
     }
 }
+    // === Prestige System ===
+    prestigeLevel = 0;
+    prestigePoints = 0;
+
+    initPrestigeSystem() {
+        // Add prestige button to your ESC menu
+        const prestigeBtn = $("<button/>", {
+            id: "btn-game-prestige",
+            text: "Prestige",
+            class: "btn-game-menu"
+        }).css({
+            "margin-top": "10px",
+            "background": "#ffcc00",
+            "color": "#000",
+            "font-weight": "bold"
+        });
+
+        $("#ui-game-menu").append(prestigeBtn);
+
+        // Handle prestige button click
+        prestigeBtn.on("click", () => {
+            this.showPrestigePrompt();
+        });
+    }
+
+    showPrestigePrompt() {
+        const confirmed = confirm(
+            `Prestige to reset your level and gain rewards?\n\nCurrent Prestige Level: ${this.prestigeLevel}`
+        );
+        if (confirmed) {
+            this.doPrestige();
+        }
+    }
+
+    doPrestige() {
+        // Reset player stats (example)
+        if (this.resetPlayerProgress) {
+            this.resetPlayerProgress();
+        }
+
+        // Increase prestige stats
+        this.prestigeLevel += 1;
+        this.prestigePoints += 10;
+
+        alert(`You have prestiged!\nNew Prestige Level: ${this.prestigeLevel}\nPrestige Points: ${this.prestigePoints}`);
+
+        // Optionally, update UI or send event to server
+        $("#ui-prestige-level").remove(); // remove old display if any
+        $("<div/>", {
+            id: "ui-prestige-level",
+            text: `Prestige: ${this.prestigeLevel}`,
+            class: "ui-prestige-display"
+        }).css({
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            color: "#ffcc00",
+            "font-size": "16px",
+            "font-weight": "bold"
+        }).appendTo("#ui-game");
+    }
+
