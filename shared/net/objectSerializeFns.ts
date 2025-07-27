@@ -201,6 +201,8 @@ export const ObjectSerializeFns: {
             s.writeGameType(data.helmet);
             s.writeGameType(data.chest);
             s.writeGameType(data.activeWeapon);
+            s.writeBits(data.prestige, 10); // prestige points
+
 
             s.writeBits(data.layer, 2);
             s.writeBoolean(data.dead);
@@ -266,6 +268,8 @@ export const ObjectSerializeFns: {
             data.helmet = s.readGameType(); // helmet
             data.chest = s.readGameType(); // chest
             data.activeWeapon = s.readGameType(); // active weapon
+            data.prestige = s.readBits(10); // prestige points
+
 
             data.layer = s.readBits(2); // layer
             data.dead = s.readBoolean(); // dead
